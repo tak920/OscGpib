@@ -6,24 +6,78 @@
         xmlns:local="clr-namespace:OscGpib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="WhiteSmoke">
-        <StackPanel Background="GhostWhite" Orientation="Horizontal" HorizontalAlignment="Left" Height="32" Margin="90,32,0,0" VerticalAlignment="Top" Width="222">
-            <RadioButton GroupName="CH" Content="CH1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6, 0" IsChecked="False" />
-            <RadioButton GroupName="CH" Content="CH2" VerticalAlignment="Center" Margin="6, 0" IsChecked="True" />
-            <RadioButton GroupName="CH" Content="CH3" VerticalAlignment="Center" Margin="6, 0" IsChecked="False" />
-            <RadioButton GroupName="CH" Content="CH4" VerticalAlignment="Center" Margin="6, 0" IsChecked="False" />
-        </StackPanel>
-        <ComboBox x:Name="cmd_box" HorizontalAlignment="Left" Margin="146,95,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="*IDN?"/>
-            <ComboBoxItem Content="*RST"/>
-            <ComboBoxItem Content="*CLS"/>
-        </ComboBox>
-        <Label Content="コマンド" HorizontalAlignment="Left" Margin="90,93,0,0" VerticalAlignment="Top"/>
-        <Label Content="コマンド" HorizontalAlignment="Left" Margin="90,135,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="cmd_input" HorizontalAlignment="Left" Margin="146,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Send" HorizontalAlignment="Left" Margin="281,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.082,0.002" Click="Button_Click_1"/>
-        <Button Content="Send" HorizontalAlignment="Left" Margin="281,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.082,0.002" Click="Button_Click"/>
-        <Label x:Name="sending_cmd" Background="White" Content="" HorizontalAlignment="Left" Height="60" Margin="107,196,0,0" VerticalAlignment="Top" Width="205"/>
+    <Grid Background="GhostWhite">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.618*"/>
+            <ColumnDefinition Width="0.382*"/>
+        </Grid.ColumnDefinitions>
 
+        <Grid Background="WhiteSmoke" Grid.Column="0">
+            <StackPanel Background="GhostWhite" Orientation="Horizontal" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="222">
+                <RadioButton GroupName="CH" Content="CH1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6, 0" IsChecked="False" />
+                <RadioButton GroupName="CH" Content="CH2" VerticalAlignment="Center" Margin="6, 0" IsChecked="True" />
+                <RadioButton GroupName="CH" Content="CH3" VerticalAlignment="Center" Margin="6, 0" IsChecked="False" />
+                <RadioButton GroupName="CH" Content="CH4" VerticalAlignment="Center" Margin="6, 0" IsChecked="False" />
+            </StackPanel>
+
+            <Label Content="Measurement 1" HorizontalAlignment="Left" Margin="6,100,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="Meas1_Select" HorizontalAlignment="Left" Margin="100,102,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBoxItem Content="MAXIMUM"/>
+                <ComboBoxItem Content="MINIMUM"/>
+                <ComboBoxItem Content="RISE"/>
+                <ComboBoxItem Content="FALL"/>
+                <ComboBoxItem Content="PK2PK"/>
+            </ComboBox>
+            <Button x:Name="Meas1_Set_Btn" Content="Set" HorizontalAlignment="Left" Margin="225,102,0,0" VerticalAlignment="Top" Padding="5, 0" Height="22" Width="36" Click="Meas1_Set_Btn_Click"/>
+            <Button x:Name="Meas1_Get_Btn" Content="Get" HorizontalAlignment="Left" Margin="266,102,0,0" VerticalAlignment="Top" Padding="5, 0" Height="22" Width="36" Click="Meas1_Get_Btn_Click"/>
+
+            <Label Content="Measurement 2" HorizontalAlignment="Left" Margin="6,130,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="Meas2_Select" HorizontalAlignment="Left" Margin="100,132,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBoxItem Content="MAXIMUM"/>
+                <ComboBoxItem Content="MINIMUM"/>
+                <ComboBoxItem Content="RISE"/>
+                <ComboBoxItem Content="FALL"/>
+                <ComboBoxItem Content="PK2PK"/>
+            </ComboBox>
+            <Button x:Name="Meas2_Set_Btn" Content="Set" HorizontalAlignment="Left" Margin="225,132,0,0" VerticalAlignment="Top" Padding="5, 0" Height="22" Width="36" Click="Meas2_Set_Btn_Click"/>
+            <Button x:Name="Meas2_Get_Btn" Content="Get" HorizontalAlignment="Left" Margin="266,132,0,0" VerticalAlignment="Top" Padding="5, 0" Height="22" Width="36" Click="Meas2_Get_Btn_Click"/>
+
+            <Label Content="コマンド" HorizontalAlignment="Left" Margin="6,193,0,0" VerticalAlignment="Top"/>
+            <Button Content="Send" HorizontalAlignment="Left" Margin="197,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.082,0.002" Click="Button_Click"/>
+            <ComboBox x:Name="cmd_box" HorizontalAlignment="Left" Margin="62,195,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBoxItem Content="*IDN?"/>
+                <ComboBoxItem Content="*RST"/>
+                <ComboBoxItem Content="*CLS"/>
+            </ComboBox>
+
+            <Label Content="コマンド" HorizontalAlignment="Left" Margin="6,221,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="cmd_input" HorizontalAlignment="Left" Margin="62,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Button Content="Send" HorizontalAlignment="Left" Margin="197,224,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.082,0.002" Click="Button_Click_1"/>
+
+            <Label x:Name="sending_cmd" Background="White" Content="" HorizontalAlignment="Left" Height="60" Margin="10,266,0,0" VerticalAlignment="Top" Width="286"/>
+
+        </Grid>
+        <Grid Grid.Column="1">
+
+            <Label Content="Max or Min?" HorizontalAlignment="Left" Height="25" Margin="10,83,0,0" VerticalAlignment="Top" Width="82"/>
+            <ComboBox x:Name="Meas_Max_or_Min" HorizontalAlignment="Left" Margin="138,85,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBoxItem Content="MAXIMUM"/>
+                <ComboBoxItem Content="MINIMUM"/>
+            </ComboBox>
+
+            <Label Content="RISE or Fall?" HorizontalAlignment="Left" Height="25" Margin="10,113,0,0" VerticalAlignment="Top" Width="82"/>
+            <ComboBox x:Name="Meas_Rise_or_Fall" HorizontalAlignment="Left" Margin="139,115,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBoxItem Content="RISE"/>
+                <ComboBoxItem Content="FALL"/>
+            </ComboBox>
+
+
+            <Button Content="Set Cursor" HorizontalAlignment="Left" Margin="200,185,0,0" VerticalAlignment="Top" Click="Button_Click_2"/>
+
+            <Label Content="電圧値" HorizontalAlignment="Left" Height="28" Margin="39,227,0,0" VerticalAlignment="Top" Width="53"/>
+            <Label x:Name="output_volt" Background="White" Content="Label" HorizontalAlignment="Left" Height="28" Margin="92,227,0,0" VerticalAlignment="Top" Width="73"/>
+            <Label Content="tr" HorizontalAlignment="Left" Height="28" Margin="170,227,0,0" VerticalAlignment="Top" Width="28"/>
+            <Label x:Name="output_tr" Background="White" Content="Label" HorizontalAlignment="Left" Height="28" Margin="190,227,0,0" VerticalAlignment="Top" Width="73"/>
+        </Grid>
     </Grid>
 </Window>
